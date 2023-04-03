@@ -19,9 +19,15 @@ class Game{
 
         Game(Player player1,Player player2);
 
-        // void create_deck();
+        void create_deck();
 
-        // vector<Card> getDeck();
+        void print_cards_of_deck(vector<Card> &deck_of_cards);
+
+        vector<Card> getDeck();
+
+        void shuffleDeck(vector<Card> &deck_of_cards);
+
+        void divideDeck(vector<Card> &deck_of_cards);
 
         void playAll();
 
@@ -34,9 +40,6 @@ class Game{
         void playTurn();
 
         void printLastTurn();
-
-
-
 
 
 };

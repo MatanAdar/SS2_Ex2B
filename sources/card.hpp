@@ -7,19 +7,21 @@ using namespace std;
 namespace ariel{
 class Card{
 
-    // private:
-    //     int number;
-    //     string shape;
+    private:
+        int number;
+        string shape;
 
-    // public:
+    public:
 
-    //     Card(){}
+        Card(){}
 
-    //     Card(int number, string shape);
+        Card(int number, string shape);
 
-    //     Card getCard();
+        Card getCard();
 
-    //     void setCard(Card(int number, string shape));
+        int getNum();
+
+        string getShape();
 
 };
 }

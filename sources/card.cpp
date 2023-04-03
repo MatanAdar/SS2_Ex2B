@@ -3,17 +3,21 @@
 using namespace ariel;
 
 
-// Card::Card(int number,string shape){
-//     this->number = number;
-//     this->shape = shape;
-// }
+Card::Card(int number,string shape){
+    this->number = number;
+    this->shape = shape;
+}
 
-// Card Card::getCard(){
+Card Card::getCard(){
 
-//     return Card(this->number,this->shape);
-// }
+    return Card(this->number,this->shape);
+}
 
-// void Card::setCard(Card(int number, string shape)){
-//     this->getCard() = Card(number, shape);
-// }
+int Card::getNum(){
+    return this->number;
+}
+
+string Card::getShape(){
+    return this->shape;
+}
 
