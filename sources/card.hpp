@@ -4,7 +4,7 @@
 #include <string>
 
 using namespace std;
-namespace ariel{
+namespace ariel{}
 class Card{
 
     private:
@@ -24,5 +24,5 @@ class Card{
         string getShape();
 
 };
-}
+
 #endif

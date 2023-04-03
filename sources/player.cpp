@@ -3,6 +3,8 @@
 #include <string>
 
 #include <iostream>
+#include <vector>
+
 using namespace std;
 using namespace ariel;
 
@@ -10,18 +12,30 @@ using namespace ariel;
 
 Player::Player(string name){
     this->myName=name;
+    this->stack = {};
+    this->cardsTaken = {};
 }
 
 string Player::getName(){
     return this->myName;
 }
 
-void insert_cards_to_stack(Card(int number, string shape)){
-    
+void Player::insert_cards_to_stack(Card c){
+    this->stack.push_back(c);
+}
+
+void Player::print_stack(){
+    for(size_t i=0; i<stack.size();i++){
+        cout << this->stack[i].getNum() << " of " << this->stack[i].getShape() << endl;
+    }
 }
 
 vector<Card> Player::getStack(){
     return this->stack;
+}
+
+void Player::setStack(vector<Card> other){
+    this->stack = other;
 }
 
 vector<Card> Player::getCardsTaken(){
@@ -30,9 +44,9 @@ vector<Card> Player::getCardsTaken(){
 
 
 int Player::stacksize(){
-    return 0;
+    return this->stack.size();
 }
 
 int Player::cardesTaken(){
-    return 0;
+    return this->cardsTaken.size();
 }  

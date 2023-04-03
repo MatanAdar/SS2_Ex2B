@@ -8,7 +8,7 @@
 
 using namespace std;
 
-namespace ariel{
+namespace ariel{}
 
 class Player{
 
@@ -25,9 +25,13 @@ class Player{
 
         string getName();
 
-        void insert_cards_to_stack(Card(int number, string shape));
+        void insert_cards_to_stack(Card c);
+
+        void print_stack();
 
         vector<Card> getStack();
+
+        void setStack(vector<Card> other);
 
         vector<Card> getCardsTaken();
 
@@ -36,6 +40,6 @@ class Player{
         int cardesTaken();   
 
 };
-}
+
 
 #endif
