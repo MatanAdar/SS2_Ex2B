@@ -9,7 +9,6 @@ using namespace std;
 using namespace ariel;
 
 
-
 Player::Player(string name){
     this->myName=name;
     this->stack = {};
@@ -26,7 +25,7 @@ void Player::insert_cards_to_stack(Card c){
 
 void Player::print_stack(){
     for(size_t i=0; i<stack.size();i++){
-        cout << this->stack[i].getNum() << " of " << this->stack[i].getShape() << endl;
+        cout << this->stack[i].getCardType() << " of " << this->stack[i].getShape() << endl;
     }
 }
 
@@ -34,8 +33,17 @@ vector<Card> Player::getStack(){
     return this->stack;
 }
 
-void Player::setStack(vector<Card> other){
-    this->stack = other;
+Card Player::pull_last_card_from_stack(vector<Card> stack){
+    if(stack.size()>=0){
+        Card to_play = stack.back();
+        stack.pop_back();
+        return to_play;
+    }
+    throw std::exception();
+}
+
+void Player::insert_cards_to_cardsTaken(Card c){
+    this->cardsTaken.push_back(c);
 }
 
 vector<Card> Player::getCardsTaken(){

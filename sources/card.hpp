@@ -5,9 +5,11 @@
 
 using namespace std;
 namespace ariel{}
+
 class Card{
 
     private:
+        string card_type;
         int number;
         string shape;
 
@@ -15,9 +17,11 @@ class Card{
 
         Card(){}
 
-        Card(int number, string shape);
+        Card(string card_type, int number, string shape);
 
         Card getCard();
+
+        string getCardType();
 
         int getNum();
 

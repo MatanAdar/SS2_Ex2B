@@ -29,6 +29,8 @@ class Game{
 
         void divideDeck(vector<Card> &deck_of_cards);
 
+        void playTurn();
+
         void playAll();
 
         void printWiner();
@@ -36,8 +38,6 @@ class Game{
         void printLog();
 
         void printStats();
-
-        void playTurn();
 
         void printLastTurn();
 

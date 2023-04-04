@@ -10,6 +10,7 @@ using namespace std;
 
 namespace ariel{}
 
+
 class Player{
 
     private:
@@ -29,9 +30,11 @@ class Player{
 
         void print_stack();
 
-        vector<Card> getStack();
+        Card pull_last_card_from_stack(vector<Card> stack);
 
-        void setStack(vector<Card> other);
+        void insert_cards_to_cardsTaken(Card c);
+
+        vector<Card> getStack();
 
         vector<Card> getCardsTaken();
 
