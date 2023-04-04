@@ -34,6 +34,7 @@ Game::Game(Player &p1,Player &p2){
     //divide the deck to 2 players
     divideDeck(this->deck_of_cards);
 
+    //print players stack and stack size
     cout << "player stack:" << endl;
     cout << "player1:" << endl;
     cout << player1->stacksize() << endl;
@@ -143,15 +144,6 @@ void Game::shuffleDeck(vector<Card> &deck_of_cards){
 }
 
 void Game::divideDeck(vector<Card> &deck_of_cards){
-
-    // vector<Card> player1_cards(deck_of_cards.begin(), deck_of_cards.begin() + 26);
-    // vector<Card> player2_cards(deck_of_cards.begin() + 26, deck_of_cards.end());
-
-    // // assign the vectors to the players
-    // player1.setStack(player1_cards); 
-    // player2.setStack(player2_cards);
-
-
     size_t i=0;
     while(i<52){
         if(i%2 == 0){
@@ -209,6 +201,10 @@ void Game::playTurn(){
     }
 }
 
+void Game::printLastTurn(){
+
+}
+
 
 void Game::playAll(){
 
@@ -223,9 +219,5 @@ void Game::printLog(){
 }
 
 void Game::printStats(){
-
-}
-
-void Game::printLastTurn(){
 
 }
