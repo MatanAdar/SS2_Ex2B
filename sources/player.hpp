@@ -17,30 +17,37 @@ class Player{
         string myName;
         vector<Card> stack;
         vector<Card> cardsTaken;
+        int number_of_wins;
 
     public:
 
-        Player(){}
+        Player();
 
         Player(string name);
 
         string getName();
 
-        void insert_cards_to_stack(Card c);
+        void insert_cards_to_stack(Card card);
 
         void print_stack();
 
         Card pull_last_card_from_stack();
 
-        void insert_cards_to_cardsTaken(Card c);
+        void insert_cards_to_cardsTaken(Card card);
 
         vector<Card> getStack();
 
         vector<Card> getCardsTaken();
 
+        int getNumberOfWins();
+
+        void setNumberOfWins();
+
         int stacksize();
 
-        int cardesTaken();   
+        int cardesTaken();
+
+        void destructor();
 
 };
 

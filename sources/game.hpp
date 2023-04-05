@@ -14,11 +14,13 @@ class Game{
         Player *player2;
         vector<Card> deck_of_cards;
         string turn_status_print;
-        string name_of_winner;
+        string print_all_log;
+        float number_of_turns;
+        int number_of_draws;
 
     public:
 
-        Game(){}
+        Game();
 
         Game(Player &player1,Player &player2);
 
@@ -35,8 +37,6 @@ class Game{
         void playTurn();
 
         void get_turn_status(Card p1_card, Card p2_card);
-
-        string getNameOfPlayer();
 
         void playAll();
 

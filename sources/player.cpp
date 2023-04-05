@@ -8,19 +8,27 @@
 using namespace std;
 using namespace ariel;
 
+Player::Player(){
+    this->myName="";
+    this->stack = {};
+    this->cardsTaken = {};
+    this->number_of_wins = 0;
+}
+
 
 Player::Player(string name){
     this->myName=name;
     this->stack = {};
     this->cardsTaken = {};
+    this->number_of_wins = 0;
 }
 
 string Player::getName(){
     return this->myName;
 }
 
-void Player::insert_cards_to_stack(Card c){
-    this->stack.push_back(c);
+void Player::insert_cards_to_stack(Card card){
+    this->stack.push_back(card);
 }
 
 void Player::print_stack(){
@@ -39,15 +47,24 @@ Card Player::pull_last_card_from_stack(){
         this->stack.pop_back();
         return to_play;
     }
-    throw std::exception();
+    // throw std::exception();
+    throw std::runtime_error("There is no more cards in the stack");
 }
 
-void Player::insert_cards_to_cardsTaken(Card c){
-    this->cardsTaken.push_back(c);
+void Player::insert_cards_to_cardsTaken(Card card){
+    this->cardsTaken.push_back(card);
 }
 
 vector<Card> Player::getCardsTaken(){
     return this->cardsTaken;
+}
+
+int Player::getNumberOfWins(){
+    return this->number_of_wins;
+}
+
+void Player::setNumberOfWins(){
+    this->number_of_wins++;
 }
 
 
@@ -57,4 +74,11 @@ int Player::stacksize(){
 
 int Player::cardesTaken(){
     return this->cardsTaken.size();
-}  
+}
+
+void Player::destructor(){
+    this->stack.clear();
+    this->cardsTaken.clear();
+    this->stack.shrink_to_fit();
+    this->cardsTaken.shrink_to_fit();
+}

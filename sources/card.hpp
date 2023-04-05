@@ -15,7 +15,7 @@ class Card{
 
     public:
 
-        Card(){}
+        Card();
 
         Card(string card_type, int number, string shape);
 

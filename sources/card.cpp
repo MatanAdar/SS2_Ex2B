@@ -2,6 +2,12 @@
 #include <string>
 using namespace ariel;
 
+Card::Card(){
+    this->card_type = "";
+    this->number = 0;
+    this->shape = "";
+}
+
 
 Card::Card(string card_type, int number,string shape){
     this->card_type = card_type;
