@@ -4,6 +4,7 @@
 #include <random>
 #include <algorithm>
 #include <iostream>
+#include <string>
 
 using namespace ariel;
 using namespace std;
@@ -158,14 +159,28 @@ void Game::divideDeck(vector<Card> &deck_of_cards){
 
 void Game::playTurn(){
 
-    Card p1_card = player1->pull_last_card_from_stack(this->player1->getStack());
-    Card p2_card = player2->pull_last_card_from_stack(this->player2->getStack());
+    Card p1_card = player1->pull_last_card_from_stack();
+    Card p2_card = player2->pull_last_card_from_stack();
 
+    get_turn_status(p1_card,p2_card);
+
+    // if(p1_card.getNum() == 1 && p2_card.getNum() != 2 && p2_card.getNum() != 1){
+    //     this->name_of_winner = player1->getName();
+    //     player1->insert_cards_to_cardsTaken(p1_card);
+    //     player1->insert_cards_to_cardsTaken(p2_card);
+    // }
+    // else if(p1_card.getNum() != 2 && p2_card.getNum() == 1 && p1_card.getNum() != 1){
+    //     this->name_of_winner = player2->getName();
+    //     player2->insert_cards_to_cardsTaken(p1_card);
+    //     player2->insert_cards_to_cardsTaken(p2_card);
+    // }
     if(p1_card.getNum() > p2_card.getNum()){
+        this->name_of_winner = player1->getName();
         player1->insert_cards_to_cardsTaken(p1_card);
         player1->insert_cards_to_cardsTaken(p2_card);
     }
     else if(p1_card.getNum() < p2_card.getNum()){
+        this->name_of_winner = player2->getName();
         player2->insert_cards_to_cardsTaken(p1_card);
         player2->insert_cards_to_cardsTaken(p2_card);
     }
@@ -173,36 +188,76 @@ void Game::playTurn(){
         vector<Card> temp;
         Card p1_tie;
         Card p2_tie;
-        while(p1_tie.getNum() == p2_tie.getNum()){
-            temp.push_back(player1->pull_last_card_from_stack(player1->getStack()));
-            temp.push_back(player2->pull_last_card_from_stack(player2->getStack()));
+        while(true){
+            temp.push_back(player1->pull_last_card_from_stack());
+            temp.push_back(player2->pull_last_card_from_stack());
 
-            p1_tie = player1->pull_last_card_from_stack(player1->getStack());
-            p2_tie = player2->pull_last_card_from_stack(player2->getStack());
+            p1_tie = player1->pull_last_card_from_stack();
+            p2_tie = player2->pull_last_card_from_stack();
 
             if(p1_tie.getNum() > p2_tie.getNum()){
+                get_turn_status(p1_tie,p2_tie);
+                player1->insert_cards_to_cardsTaken(p1_tie);
+                player1->insert_cards_to_cardsTaken(p2_tie);
                 player1->insert_cards_to_cardsTaken(p1_card);
                 player1->insert_cards_to_cardsTaken(p2_card);
                 while(temp.size()>0){
                     player1->insert_cards_to_cardsTaken(temp.back());
                     temp.pop_back();
                 }
+                break;
             }
             else if(p1_tie.getNum() < p2_tie.getNum()){
+                get_turn_status(p1_tie, p2_tie);
+                player2->insert_cards_to_cardsTaken(p1_tie);
+                player2->insert_cards_to_cardsTaken(p2_tie);
                 player2->insert_cards_to_cardsTaken(p1_card);
                 player2->insert_cards_to_cardsTaken(p2_card);
                 while(temp.size()>0){
                     player2->insert_cards_to_cardsTaken(temp.back());
                     temp.pop_back();
                 }
+                break;
             }
+            
+            temp.push_back(p1_tie);
+            temp.push_back(p2_tie);
+
         }
 
     }
 }
 
+string Game::getNameOfPlayer(){
+    return this->name_of_winner;
+}
+
+void Game::get_turn_status(Card p1_card, Card p2_card){
+
+    // if(getNameOfPlayer() == player1->getName()){
+    //     this->turn_status_print.append(player1->getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2->getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player1->getName() +" wins.\n");
+    // }
+    // else if(getNameOfPlayer() == player2->getName()){
+    //     this->turn_status_print.append(player1->getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2->getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player2->getName() +" wins.\n");
+    // }
+    // else{
+    //     this->turn_status_print.append(player1->getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2->getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". Draw.");
+    // }
+
+    if(p1_card.getNum() == p2_card.getNum()){
+        this->turn_status_print.append(player1->getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2->getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". Draw.");
+    }
+    else if(p1_card.getNum()>p2_card.getNum()){
+        this->turn_status_print.append(player1->getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2->getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player1->getName() +" wins.\n");
+    }
+    else{
+        this->turn_status_print.append(player1->getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2->getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player2->getName() +" wins.\n");
+    }
+}
+
 void Game::printLastTurn(){
 
+    cout << this->turn_status_print << endl;
 }
 
 

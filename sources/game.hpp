@@ -4,6 +4,7 @@
 #include "player.hpp"
 #include "iostream"
 #include "card.hpp"
+#include <string>
 
 namespace ariel{}
 class Game{
@@ -12,6 +13,8 @@ class Game{
         Player *player1;
         Player *player2;
         vector<Card> deck_of_cards;
+        string turn_status_print;
+        string name_of_winner;
 
     public:
 
@@ -30,6 +33,10 @@ class Game{
         void divideDeck(vector<Card> &deck_of_cards);
 
         void playTurn();
+
+        void get_turn_status(Card p1_card, Card p2_card);
+
+        string getNameOfPlayer();
 
         void playAll();
 

@@ -30,7 +30,7 @@ class Player{
 
         void print_stack();
 
-        Card pull_last_card_from_stack(vector<Card> stack);
+        Card pull_last_card_from_stack();
 
         void insert_cards_to_cardsTaken(Card c);
 

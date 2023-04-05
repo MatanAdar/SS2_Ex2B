@@ -33,10 +33,10 @@ vector<Card> Player::getStack(){
     return this->stack;
 }
 
-Card Player::pull_last_card_from_stack(vector<Card> stack){
-    if(stack.size()>=0){
-        Card to_play = stack.back();
-        stack.pop_back();
+Card Player::pull_last_card_from_stack(){
+    if(this->stack.size()>=0){
+        Card to_play = this->stack.back();
+        this->stack.pop_back();
         return to_play;
     }
     throw std::exception();
