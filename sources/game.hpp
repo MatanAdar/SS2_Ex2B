@@ -34,6 +34,8 @@ class Game{
 
         void divideDeck(vector<Card> &deck_of_cards);
 
+        void divideDeck_cardsTaken(vector<Card> &deck_of_cards);
+
         void playTurn();
 
         void get_turn_status(Card p1_card, Card p2_card);

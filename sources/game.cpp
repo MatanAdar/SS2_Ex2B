@@ -148,15 +148,30 @@ void Game::shuffleDeck(vector<Card> &deck_of_cards){
 }
 
 void Game::divideDeck(vector<Card> &deck_of_cards){
-    size_t i=0;
-    while(i<52){
-        if(i%2 == 0){
-            player1->insert_cards_to_stack(deck_of_cards[i]);
-        }
-        else{
-            player2->insert_cards_to_stack(deck_of_cards[i]);
-        }
-        i++;
+    if(deck_of_cards.size() == 0){
+        return;
+    }
+    
+    while(deck_of_cards.size() != 0){
+        player1->insert_cards_to_stack(deck_of_cards.back());
+        deck_of_cards.pop_back();
+    
+        player2->insert_cards_to_stack(deck_of_cards.back());
+        deck_of_cards.pop_back();
+    }
+}
+
+void Game::divideDeck_cardsTaken(vector<Card> &deck_of_cards){
+    if(deck_of_cards.size() == 0){
+        return;
+    }
+    
+    while(deck_of_cards.size() != 0){
+        player1->insert_cards_to_cardsTaken(deck_of_cards.back());
+        deck_of_cards.pop_back();
+    
+        player2->insert_cards_to_cardsTaken(deck_of_cards.back());
+        deck_of_cards.pop_back();
     }
 }
 
@@ -168,7 +183,7 @@ void Game::playTurn(){
     }
 
     if(this->player1->stacksize() == 0 && this->player2->stacksize() == 0){
-        throw std::runtime_error("The game is over. can pull from empty deck");
+        throw std::runtime_error("The game is over. cant pull from empty deck");
     }
 
     Card p1_card = player1->pull_last_card_from_stack();
@@ -194,19 +209,22 @@ void Game::playTurn(){
     }
     else{
         vector<Card> temp = {};
+        Card p1_tie;
+        Card p2_tie;
         while(true){
 
-            // if(this->player1->stacksize() ==0 && this->player2->stacksize() == 0){
-            //     break;
-            // }
+            if(this->player1->stacksize() ==0 && this->player2->stacksize() == 0){
+                this->number_of_draws = this->number_of_draws+1;
+                break;
+            }
             this->number_of_draws = this->number_of_draws+1;
 
             if(this->player1->stacksize() > 0 && this->player2->stacksize() > 0){
                 temp.push_back(player1->pull_last_card_from_stack());
                 temp.push_back(player2->pull_last_card_from_stack());
                 if(this->player1->stacksize() > 0 && this->player2->stacksize() > 0){
-                    Card p1_tie = player1->pull_last_card_from_stack();
-                    Card p2_tie = player2->pull_last_card_from_stack();
+                    p1_tie = player1->pull_last_card_from_stack();
+                    p2_tie = player2->pull_last_card_from_stack();
 
                     if(p1_tie.getNum() > p2_tie.getNum()){
                         get_turn_status(p1_tie,p2_tie);
@@ -243,17 +261,27 @@ void Game::playTurn(){
                     
                     temp.push_back(p1_tie);
                     temp.push_back(p2_tie);
+
+                    if(this->player1->stacksize() ==0 && this->player2->stacksize() == 0){
+                        break;
+                    }
                 }
                 else{
                     shuffleDeck(temp);
-                    divideDeck(temp);
+                    divideDeck_cardsTaken(temp);
+                    break;
                 }
             }
             else{
-                cout << "we here" << endl;
-                return;
-                
+                temp.push_back(p1_card);
+                temp.push_back(p2_card);
+                break;
             }
+        }
+        // its mean that the last card is the same the there is no more cards in the stack so its a draw
+        if((p1_tie.getNum() == p2_tie.getNum()) && (this->player1->stacksize() == 0 && this->player2->stacksize() == 0)){
+            divideDeck_cardsTaken(temp);
+            cout << "Draw" << endl;
         }
 
     }
@@ -314,12 +342,12 @@ void Game::printWiner(){
         else{
             cout << this->player1->cardesTaken() << endl;
             cout << this->player2->cardesTaken() << endl;
-            throw std::runtime_error("ERROR: THERE IS NO WINNER - DRAW!");
+            cout << "there is a draw" << endl;
         }
     }
     else{
 
-        std::cout << "-------- GAME IS NOT OVER---------" << std::endl;
+        cout << "-------- GAME IS NOT OVER---------" << endl;
     }
 }
 
