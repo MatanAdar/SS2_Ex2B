@@ -35,6 +35,8 @@ class Player{
 
         void insert_cards_to_cardsTaken(Card card);
 
+        void print_cardesTaken();
+
         vector<Card> getStack();
 
         vector<Card> getCardsTaken();

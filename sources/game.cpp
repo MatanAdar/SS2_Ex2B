@@ -165,12 +165,13 @@ void Game::divideDeck_cardsTaken(vector<Card> &deck_of_cards){
     if(deck_of_cards.size() == 0){
         return;
     }
-    
+    // we want it that player2 get the card first because we take from the back of the deck(last card),
+    // and then each player will get his cards back if we have a draw
     while(deck_of_cards.size() != 0){
-        player1->insert_cards_to_cardsTaken(deck_of_cards.back());
-        deck_of_cards.pop_back();
-    
         player2->insert_cards_to_cardsTaken(deck_of_cards.back());
+        deck_of_cards.pop_back();
+
+        player1->insert_cards_to_cardsTaken(deck_of_cards.back());
         deck_of_cards.pop_back();
     }
 }

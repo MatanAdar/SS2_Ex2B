@@ -55,6 +55,12 @@ void Player::insert_cards_to_cardsTaken(Card card){
     this->cardsTaken.push_back(card);
 }
 
+void Player::print_cardesTaken(){
+    for(size_t i=0; i<cardsTaken.size();i++){
+        cout << this->cardsTaken[i].getCardType() << " of " << this->cardsTaken[i].getShape() << endl;
+    }
+}
+
 vector<Card> Player::getCardsTaken(){
     return this->cardsTaken;
 }
