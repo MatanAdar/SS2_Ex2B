@@ -357,7 +357,7 @@ void Game::playTurn(){
         }
 
     }
-
+    // After game ended change the playing status in each player that tell that the players finished the game
     if(this->player1.stacksize() ==0 && this->player2.stacksize() == 0){
         player1.set_playing_status(false);
         player2.set_playing_status(false);
@@ -370,7 +370,7 @@ void Game::get_turn_status(Card p1_card, Card p2_card){
 
     // print turn status when we had a draw
     if(p1_card.getNum() == p2_card.getNum()){
-        // Save as string what happend this turn
+       
         this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". Draw. ");
         // Save as string including what happend in all turns togheter
         this->print_all_log.append(this->turn_status_print);
@@ -378,14 +378,14 @@ void Game::get_turn_status(Card p1_card, Card p2_card){
     else if(p1_card.getNum() > p2_card.getNum()){
         // print turn status when player 2 have ace and player 1 have card that diffrent then 2
         if(p1_card.getNum() != 2 && p2_card.getNum() == 1){
-            // Save as string what happend this turn
+            
             this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player2.getName() +" wins.\n");
             // Save as string including what happend in all turns togheter
             this->print_all_log.append(this->turn_status_print);
         }
         // when anything else happend
         else{ 
-            // Save as string what happend this turn
+            
             this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player1.getName() +" wins.\n");
             // Save as string including what happend in all turns togheter
             this->print_all_log.append(this->turn_status_print);
@@ -394,14 +394,14 @@ void Game::get_turn_status(Card p1_card, Card p2_card){
     else if(p1_card.getNum() < p2_card.getNum()){
         // print turn status when player 1 have ace(1) and player 2 have card that diffrent then 2
         if(p1_card.getNum() == 1 && p2_card.getNum() != 2){
-            // Save as string what happend this turn
+           
             this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player1.getName() +" wins.\n");
             // Save as string including what happend in all turns togheter
             this->print_all_log.append(this->turn_status_print);
         }
         //when anything else happend
         else{ 
-            // Save as string what happend this turn
+            
             this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player2.getName() +" wins.\n");
             // Save as string including what happend in all turns togheter
             this->print_all_log.append(this->turn_status_print);
@@ -433,11 +433,11 @@ void Game::playAll(){
 void Game::printWiner(){
     if(this->player1.stacksize() == 0 && this->player2.stacksize() == 0){
         if(this->player1.cardesTaken() > this->player2.cardesTaken()){
-            cout << this->player1.getName() << endl;
+            cout << "The winner is: " << this->player1.getName() << endl;
             return;
         }
         else if(this->player1.cardesTaken() < this->player2.cardesTaken()){
-            cout << this->player2.getName() << endl;
+            cout << "The winner is: " <<this->player2.getName() << endl;
             return;
         }
         else{
@@ -463,6 +463,12 @@ void Game::printLog(){
 void Game::printStats(){
     cout << "************* Player 1 stats: *****************" << endl;
     //winRate player1
+    cout << "Amount of turns:" << endl;
+    cout << this->number_of_turns << endl;
+
+    cout << "Amout of wins:" << endl;
+    cout << player1.getNumberOfWins() << endl;
+
     cout << "WinRate:" << endl;
     float winRate_player1 = (player1.getNumberOfWins() / this->number_of_turns) *100;
     string str_winRate_player1 = std::to_string(winRate_player1) + "%";
@@ -472,16 +478,22 @@ void Game::printStats(){
     int cards_won_player1 = player1.cardesTaken();
     cout << cards_won_player1 << endl;
 
+    cout << "Amout of draws:" << endl;
+    cout << this->number_of_draws << endl;
+
     cout << "DrawRate:" << endl;
     float drawRate_of_player1 = (this->number_of_draws / this->number_of_turns) *100;
     string str_drawRate_player1 = std::to_string(drawRate_of_player1) + "%";
     cout << str_drawRate_player1 << endl;
 
-    cout << "Amout of draws:" << endl;
-    cout << this->number_of_draws << endl;
-
     cout << "************* Player 2 stats: *****************" << endl;
     //winRate player2
+    cout << "Amount of turns:" << endl;
+    cout << this->number_of_turns << endl;
+
+    cout << "Amout of wins:" << endl;
+    cout << player2.getNumberOfWins() << endl;
+
     cout << "WinRate:" << endl;
     float winRate_player2 = (player2.getNumberOfWins() / this->number_of_turns) *100;
     string str_winRate_player2 = std::to_string(winRate_player2) + "%";
@@ -491,12 +503,13 @@ void Game::printStats(){
     int cards_won_player2 = player2.cardesTaken();
     cout << cards_won_player2 << endl;
 
+    cout << "Amout of draws:" << endl;
+    cout << this->number_of_draws << endl;
+
     cout << "DrawRate:" << endl;
     float drawRate_of_player2 = (this->number_of_draws / this->number_of_turns) *100;
     string str_drawRate_player2 = std::to_string(drawRate_of_player2) + "%";
     cout << str_drawRate_player2 << endl;
 
-    cout << "Amout of draws:" << endl;
-    cout << this->number_of_draws << endl;
 
 }
