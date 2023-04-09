@@ -55,7 +55,6 @@ Game::Game(Player &p1,Player &p2): player1(p1), player2(p2){
     // cout << player2.stacksize() << endl;
     // player2.print_stack();
 
-
 }
 
 
@@ -206,7 +205,7 @@ void Game::playTurn(){
     get_turn_status(p1_card,p2_card);
 
     // Checking if anyone win
-    if(p1_card.getNum() > p2_card.getNum()){
+    if(p1_card.getNum() > p2_card.getNum() || (p1_card.getNum() != 1 && p2_card.getNum() == 1)){
         if(p1_card.getNum() !=2 && p2_card.getNum() == 1){
             // Increase number of wins for player2 by 1
             player2.setNumberOfWins();
@@ -224,7 +223,7 @@ void Game::playTurn(){
             player1.insert_cards_to_cardsTaken(p2_card);
         }
     }
-    else if(p1_card.getNum() < p2_card.getNum()){
+    else if(p1_card.getNum() < p2_card.getNum()  || (p1_card.getNum() == 1 && p2_card.getNum() != 1)){
         if(p1_card.getNum() == 1 && p2_card.getNum() != 2){
             // Increase number of wins for player1 by 1
             player1.setNumberOfWins();
@@ -341,11 +340,15 @@ void Game::playTurn(){
                     shuffleDeck(temp);
                     divideDeck_cardsTaken(temp);
                     isTie=false;
+                    // Increase the number of turn by 1
+                    this->number_of_turns = this->number_of_turns+1;
                 }
             }
             else{ // when we dont have cards in stack to pull the upside-down card (last pull was the tie cards)
                 divideDeck_cardsTaken(temp);
                 isTie=false;
+                // Increase the number of turn by 1
+                this->number_of_turns = this->number_of_turns+1;
             }
         }
         // its mean that the last card is the same the there is no more cards in the stack so its a draw
