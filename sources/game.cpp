@@ -447,7 +447,7 @@ void Game::printWiner(){
     }
     else{
 
-        cout << "-------- GAME IS NOT OVER---------" << endl;
+        cout << "********* GAME NOT OVER YET **********" << endl;
     }
 }
 
