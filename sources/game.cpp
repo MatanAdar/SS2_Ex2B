@@ -28,32 +28,32 @@ Game::Game(Player &p1,Player &p2): player1(p1), player2(p2){
     //create a deck of 52 cards
     create_deck();
 
-    cout << "Before Shuffle:" << endl;
-    // print each card before the shuffle
-    print_cards_of_deck(this->deck_of_cards);
+    // cout << "Before Shuffle:" << endl;
+    // // print each card before the shuffle
+    // print_cards_of_deck(this->deck_of_cards);
 
     //shuffle the cards
     shuffleDeck(this->deck_of_cards);
     cout << endl;
 
-    cout << "After Shuffle:" << endl;
-    // print each card after the shuffle
-    print_cards_of_deck(this->deck_of_cards);
-    cout << endl;
+    // cout << "After Shuffle:" << endl;
+    // // print each card after the shuffle
+    // print_cards_of_deck(this->deck_of_cards);
+    // cout << endl;
 
     //divide the deck to 2 players
     divideDeck(this->deck_of_cards);
 
-    //print players stack and stack size
-    cout << "player stack:" << endl;
-    cout << "player1:" << endl;
-    cout << player1.stacksize() << endl;
-    player1.print_stack();
-    cout << endl;
+    // //print players stack and stack size
+    // cout << "player stack:" << endl;
+    // cout << "player1:" << endl;
+    // cout << player1.stacksize() << endl;
+    // player1.print_stack();
+    // cout << endl;
 
-    cout << "player2:" << endl;
-    cout << player2.stacksize() << endl;
-    player2.print_stack();
+    // cout << "player2:" << endl;
+    // cout << player2.stacksize() << endl;
+    // player2.print_stack();
 
 
 }
@@ -207,20 +207,40 @@ void Game::playTurn(){
 
     // Checking if anyone win
     if(p1_card.getNum() > p2_card.getNum()){
-        // Increase number of wins for player1 by 1
-        player1.setNumberOfWins();
-        // Increase the number of turn by 1
-        this->number_of_turns = this->number_of_turns+1;
-        player1.insert_cards_to_cardsTaken(p1_card);
-        player1.insert_cards_to_cardsTaken(p2_card);
+        if(p1_card.getNum() !=2 && p2_card.getNum() == 1){
+            // Increase number of wins for player2 by 1
+            player2.setNumberOfWins();
+            // Increase the number of turn by 1
+            this->number_of_turns = this->number_of_turns+1;
+            player2.insert_cards_to_cardsTaken(p1_card);
+            player2.insert_cards_to_cardsTaken(p2_card);
+        }
+        else{
+            // Increase number of wins for player1 by 1
+            player1.setNumberOfWins();
+            // Increase the number of turn by 1
+            this->number_of_turns = this->number_of_turns+1;
+            player1.insert_cards_to_cardsTaken(p1_card);
+            player1.insert_cards_to_cardsTaken(p2_card);
+        }
     }
     else if(p1_card.getNum() < p2_card.getNum()){
-        // Increase number of wins for player2 by 1
-        player2.setNumberOfWins();
-        // Increase the number of turn by 1
-        this->number_of_turns = this->number_of_turns+1;
-        player2.insert_cards_to_cardsTaken(p1_card);
-        player2.insert_cards_to_cardsTaken(p2_card);
+        if(p1_card.getNum() == 1 && p2_card.getNum() != 2){
+            // Increase number of wins for player1 by 1
+            player1.setNumberOfWins();
+            // Increase the number of turn by 1
+            this->number_of_turns = this->number_of_turns+1;
+            player1.insert_cards_to_cardsTaken(p1_card);
+            player1.insert_cards_to_cardsTaken(p2_card);
+        }
+        else{
+            // Increase number of wins for player2 by 1
+            player2.setNumberOfWins();
+            // Increase the number of turn by 1
+            this->number_of_turns = this->number_of_turns+1;
+            player2.insert_cards_to_cardsTaken(p1_card);
+            player2.insert_cards_to_cardsTaken(p2_card);
+        }
     }
     else{ // when we have a draw
         vector<Card> temp = {};
@@ -234,51 +254,77 @@ void Game::playTurn(){
         bool isTie = true;
 
         while(isTie){
-            
-            // Checking if we have cards in the stack to continue the while loop
-            if(this->player1.stacksize() == 0 && this->player2.stacksize() == 0){
-                this->number_of_draws = this->number_of_draws+1;
-                isTie=false;
-            }
 
             // increse the number of draws that happend
             this->number_of_draws = this->number_of_draws+1;
 
+            // checking if we still have cards in stack after we got a tie(to see if we can continue to pull the card upside down)
             if(this->player1.stacksize() > 0 && this->player2.stacksize() > 0){
                 temp.push_back(player1.pull_last_card_from_stack());
                 temp.push_back(player2.pull_last_card_from_stack());
+                // checking if we still have cards in stack after we got pull a upside-down card(to see if we can continue to pull the tie breaker cards)
                 if(this->player1.stacksize() > 0 && this->player2.stacksize() > 0){
                     p1_tie = player1.pull_last_card_from_stack();
                     p2_tie = player2.pull_last_card_from_stack();
 
+                    get_turn_status(p1_tie,p2_tie);
+
                     // checking if someone win the tie-breaker
                     if(p1_tie.getNum() > p2_tie.getNum()){
-                        get_turn_status(p1_tie,p2_tie);
-                        // Increase number of wins for player1 by 1
-                        player1.setNumberOfWins();
-                        // Increase the number of turn by 1
-                        this->number_of_turns = this->number_of_turns+1;
-                        player1.insert_cards_to_cardsTaken(p1_tie);
-                        player1.insert_cards_to_cardsTaken(p2_tie);
-                        while(temp.size()>0){
-                            player1.insert_cards_to_cardsTaken(temp.back());
-                            temp.pop_back();
+                        if(p1_tie.getNum() != 2 && p2_tie.getNum() == 1){
+                            // Increase number of wins for player2 by 1
+                            player2.setNumberOfWins();
+                            // Increase the number of turn by 1
+                            this->number_of_turns = this->number_of_turns+1;
+                            player2.insert_cards_to_cardsTaken(p1_tie);
+                            player2.insert_cards_to_cardsTaken(p2_tie);
+                            while(temp.size()>0){
+                                player2.insert_cards_to_cardsTaken(temp.back());
+                                temp.pop_back();
+                            }
+                            isTie = false;
                         }
-                        isTie = false;
+                        else{
+                            // Increase number of wins for player1 by 1
+                            player1.setNumberOfWins();
+                            // Increase the number of turn by 1
+                            this->number_of_turns = this->number_of_turns+1;
+                            player1.insert_cards_to_cardsTaken(p1_tie);
+                            player1.insert_cards_to_cardsTaken(p2_tie);
+                            while(temp.size()>0){
+                                player1.insert_cards_to_cardsTaken(temp.back());
+                                temp.pop_back();
+                            }
+                            isTie = false;
+                        }
                     }
                     else if(p1_tie.getNum() < p2_tie.getNum()){
-                        get_turn_status(p1_tie, p2_tie);
-                        // Increase number of wins for player2 by 1
-                        player2.setNumberOfWins();
-                        // Increase the number of turn by 1
-                        this->number_of_turns = this->number_of_turns+1;
-                        player2.insert_cards_to_cardsTaken(p1_tie);
-                        player2.insert_cards_to_cardsTaken(p2_tie);
-                        while(temp.size()>0){
-                            player2.insert_cards_to_cardsTaken(temp.back());
-                            temp.pop_back();
+                        if(p1_tie.getNum() == 1 && p2_tie.getNum() != 2){
+                            // Increase number of wins for player1 by 1
+                            player1.setNumberOfWins();
+                            // Increase the number of turn by 1
+                            this->number_of_turns = this->number_of_turns+1;
+                            player1.insert_cards_to_cardsTaken(p1_tie);
+                            player1.insert_cards_to_cardsTaken(p2_tie);
+                            while(temp.size()>0){
+                                player1.insert_cards_to_cardsTaken(temp.back());
+                                temp.pop_back();
+                            }
+                            isTie = false;
                         }
-                        isTie = false;
+                        else{
+                            // Increase number of wins for player2 by 1
+                            player2.setNumberOfWins();
+                            // Increase the number of turn by 1
+                            this->number_of_turns = this->number_of_turns+1;
+                            player2.insert_cards_to_cardsTaken(p1_tie);
+                            player2.insert_cards_to_cardsTaken(p2_tie);
+                            while(temp.size()>0){
+                                player2.insert_cards_to_cardsTaken(temp.back());
+                                temp.pop_back();
+                            }
+                            isTie = false;
+                        }
                     }
                     
                     // if no one wins the tie breaker this loop(its mean the cards again the same number),
@@ -305,7 +351,6 @@ void Game::playTurn(){
         // its mean that the last card is the same the there is no more cards in the stack so its a draw
         if((p1_tie.getNum() == p2_tie.getNum()) && (this->player1.stacksize() == 0 && this->player2.stacksize() == 0)){
             divideDeck_cardsTaken(temp);
-            cout << "Draw" << endl;
         }
 
     }
@@ -320,23 +365,44 @@ void Game::playTurn(){
 // save turn status lines(what card each player pull and who win)
 void Game::get_turn_status(Card p1_card, Card p2_card){
 
-    if(p1_card.getNum() > p2_card.getNum()){
-        // Save as string what happend this turn
-        this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player1.getName() +" wins.\n");
-        // Save as string including what happend in all turns togheter
-        this->print_all_log.append(this->turn_status_print);
-    }
-    else if(p1_card.getNum() < p2_card.getNum()){
-        // Save as string what happend this turn
-        this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player2.getName() +" wins.\n");
-        // Save as string including what happend in all turns togheter
-        this->print_all_log.append(this->turn_status_print);
-    }
-    else{
+    // print turn status when we had a draw
+    if(p1_card.getNum() == p2_card.getNum()){
         // Save as string what happend this turn
         this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". Draw. ");
         // Save as string including what happend in all turns togheter
         this->print_all_log.append(this->turn_status_print);
+    }
+    else if(p1_card.getNum() > p2_card.getNum()){
+        // print turn status when player 2 have ace and player 1 have card that diffrent then 2
+        if(p1_card.getNum() != 2 && p2_card.getNum() == 1){
+            // Save as string what happend this turn
+            this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player2.getName() +" wins.\n");
+            // Save as string including what happend in all turns togheter
+            this->print_all_log.append(this->turn_status_print);
+        }
+        // when anything else happend
+        else{ 
+            // Save as string what happend this turn
+            this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player1.getName() +" wins.\n");
+            // Save as string including what happend in all turns togheter
+            this->print_all_log.append(this->turn_status_print);
+        }
+    }
+    else if(p1_card.getNum() < p2_card.getNum()){
+        // print turn status when player 1 have ace(1) and player 2 have card that diffrent then 2
+        if(p1_card.getNum() == 1 && p2_card.getNum() != 2){
+            // Save as string what happend this turn
+            this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player1.getName() +" wins.\n");
+            // Save as string including what happend in all turns togheter
+            this->print_all_log.append(this->turn_status_print);
+        }
+        //when anything else happend
+        else{ 
+            // Save as string what happend this turn
+            this->turn_status_print = (player1.getName() + " played " + p1_card.getCardType() + " of " + p1_card.getShape() + " " + player2.getName() + " played " + p2_card.getCardType() + " of " + p2_card.getShape() + ". " + player2.getName() +" wins.\n");
+            // Save as string including what happend in all turns togheter
+            this->print_all_log.append(this->turn_status_print);
+        }
     }
 }
 
@@ -356,8 +422,6 @@ void Game::playAll(){
     if(this->player1.stacksize() == 0 && this->player2.stacksize() == 0){
         player1.set_playing_status(false);
         player2.set_playing_status(false);
-        // player1.playing_already = false;
-        // player2.playing_already = false;
     }
 }
 
@@ -367,12 +431,15 @@ void Game::printWiner(){
     if(this->player1.stacksize() == 0 && this->player2.stacksize() == 0){
         if(this->player1.cardesTaken() > this->player2.cardesTaken()){
             cout << this->player1.getName() << endl;
+            return;
         }
         else if(this->player1.cardesTaken() < this->player2.cardesTaken()){
             cout << this->player2.getName() << endl;
+            return;
         }
         else{
-            cout << "Draw" << endl;
+            cout << "This is a draw" << endl;
+            return;
         }
     }
     else{
