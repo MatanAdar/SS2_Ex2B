@@ -10,8 +10,8 @@ namespace ariel{}
 class Game{
 
     private:
-        Player *player1;
-        Player *player2;
+        Player &player1;
+        Player &player2;
         vector<Card> deck_of_cards;
         string turn_status_print;
         string print_all_log;
@@ -19,8 +19,6 @@ class Game{
         int number_of_draws;
 
     public:
-
-        Game();
 
         Game(Player &player1,Player &player2);
 

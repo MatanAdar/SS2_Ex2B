@@ -18,6 +18,7 @@ class Player{
         vector<Card> stack;
         vector<Card> cardsTaken;
         int number_of_wins;
+        bool playing_already;
 
     public:
 
@@ -26,6 +27,10 @@ class Player{
         Player(string name);
 
         string getName();
+
+        bool get_playing_status();
+
+        void set_playing_status(bool isPlaying);
 
         void insert_cards_to_stack(Card card);
 

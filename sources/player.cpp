@@ -13,6 +13,7 @@ Player::Player(){
     this->stack = {};
     this->cardsTaken = {};
     this->number_of_wins = 0;
+    this->playing_already = false;
 }
 
 
@@ -21,10 +22,19 @@ Player::Player(string name){
     this->stack = {};
     this->cardsTaken = {};
     this->number_of_wins = 0;
+    this->playing_already = false;
 }
 
 string Player::getName(){
     return this->myName;
+}
+
+bool Player::get_playing_status(){
+    return this->playing_already;
+}
+
+void Player::set_playing_status(bool isPlaying){
+    this->playing_already = isPlaying;
 }
 
 void Player::insert_cards_to_stack(Card card){
