@@ -112,12 +112,6 @@ namespace ariel{
     }
 
 
-    // get deck function
-    vector<Card> Game::getDeck(){
-            return this->deck_of_cards;
-    }
-
-
     // prints each card in the deck
     void Game::print_cards_of_deck(vector<Card> deck_of_cards){
         for (size_t i = 0; i < deck_of_cards.size(); i++) {

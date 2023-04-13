@@ -6,7 +6,6 @@
 #include <vector>
 
 using namespace std;
-//using namespace ariel;
 
 namespace ariel{
     Player::Player(){
@@ -48,17 +47,12 @@ namespace ariel{
         }
     }
 
-    vector<Card> Player::getStack(){
-        return this->stack;
-    }
-
     Card Player::pull_last_card_from_stack(){
         if(this->stack.size()>=0){
             Card to_play = this->stack.back();
             this->stack.pop_back();
             return to_play;
         }
-        // throw std::exception();
         throw std::runtime_error("There is no more cards in the stack");
     }
 
@@ -70,10 +64,6 @@ namespace ariel{
         for(size_t i=0; i<cardsTaken.size();i++){
             cout << this->cardsTaken[i].getCardType() << " of " << this->cardsTaken[i].getShape() << endl;
         }
-    }
-
-    vector<Card> Player::getCardsTaken(){
-        return this->cardsTaken;
     }
 
     int Player::getNumberOfWins(){

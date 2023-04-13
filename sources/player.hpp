@@ -41,10 +41,6 @@ namespace ariel{
 
             void print_cardesTaken();
 
-            vector<Card> getStack();
-
-            vector<Card> getCardsTaken();
-
             int getNumberOfWins();
 
             void setNumberOfWins();

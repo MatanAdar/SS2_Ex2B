@@ -26,8 +26,6 @@ namespace ariel{
 
             void print_cards_of_deck(vector<Card> deck_of_cards);
 
-            vector<Card> getDeck();
-
             void shuffleDeck(vector<Card> &deck_of_cards);
 
             void divideDeck(vector<Card> &deck_of_cards);
@@ -47,8 +45,6 @@ namespace ariel{
             void printStats();
 
             void printLastTurn();
-
-
     };
 }
 

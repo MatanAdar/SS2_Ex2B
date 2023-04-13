@@ -1,6 +1,5 @@
 #include "card.hpp"
 #include <string>
-//using namespace ariel;
 
 namespace ariel{
     Card::Card(){
@@ -14,11 +13,6 @@ namespace ariel{
         this->card_type = card_type;
         this->number = number;
         this->shape = shape;
-    }
-
-    Card Card::getCard(){
-
-        return Card(this->card_type,this->number,this->shape);
     }
 
     string Card::getCardType(){
