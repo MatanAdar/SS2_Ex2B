@@ -1,34 +1,37 @@
 #include "card.hpp"
 #include <string>
-using namespace ariel;
+//using namespace ariel;
 
-Card::Card(){
-    this->card_type = "";
-    this->number = 0;
-    this->shape = "";
-}
+namespace ariel{
+    Card::Card(){
+        this->card_type = "";
+        this->number = 0;
+        this->shape = "";
+    }
 
 
-Card::Card(string card_type, int number,string shape){
-    this->card_type = card_type;
-    this->number = number;
-    this->shape = shape;
-}
+    Card::Card(string card_type, int number,string shape){
+        this->card_type = card_type;
+        this->number = number;
+        this->shape = shape;
+    }
 
-Card Card::getCard(){
+    Card Card::getCard(){
 
-    return Card(this->card_type,this->number,this->shape);
-}
+        return Card(this->card_type,this->number,this->shape);
+    }
 
-string Card::getCardType(){
-    return this->card_type;
-}
+    string Card::getCardType(){
+        return this->card_type;
+    }
 
-int Card::getNum(){
-    return this->number;
-}
+    int Card::getNum(){
+        return this->number;
+    }
 
-string Card::getShape(){
-    return this->shape;
+    string Card::getShape(){
+        return this->shape;
+    }
+
 }
 

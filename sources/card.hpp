@@ -4,29 +4,31 @@
 #include <string>
 
 using namespace std;
-namespace ariel{}
+namespace ariel{
 
-class Card{
+    class Card{
 
-    private:
-        string card_type;
-        int number;
-        string shape;
+        private:
+            string card_type;
+            int number;
+            string shape;
 
-    public:
+        public:
 
-        Card();
+            Card();
 
-        Card(string card_type, int number, string shape);
+            Card(string card_type, int number, string shape);
 
-        Card getCard();
+            Card getCard();
 
-        string getCardType();
+            string getCardType();
 
-        int getNum();
+            int getNum();
 
-        string getShape();
+            string getShape();
 
-};
+    };
+
+}
 
 #endif

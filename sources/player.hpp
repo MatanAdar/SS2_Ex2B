@@ -8,55 +8,56 @@
 
 using namespace std;
 
-namespace ariel{}
+namespace ariel{
 
+    class Player{
 
-class Player{
+        private:
+            string myName;
+            vector<Card> stack;
+            vector<Card> cardsTaken;
+            int number_of_wins;
+            bool playing_already;
 
-    private:
-        string myName;
-        vector<Card> stack;
-        vector<Card> cardsTaken;
-        int number_of_wins;
-        bool playing_already;
+        public:
 
-    public:
+            Player();
 
-        Player();
+            Player(string name);
 
-        Player(string name);
+            string getName();
 
-        string getName();
+            bool get_playing_status();
 
-        bool get_playing_status();
+            void set_playing_status(bool isPlaying);
 
-        void set_playing_status(bool isPlaying);
+            void insert_cards_to_stack(Card card);
 
-        void insert_cards_to_stack(Card card);
+            void print_stack();
 
-        void print_stack();
+            Card pull_last_card_from_stack();
 
-        Card pull_last_card_from_stack();
+            void insert_cards_to_cardsTaken(Card card);
 
-        void insert_cards_to_cardsTaken(Card card);
+            void print_cardesTaken();
 
-        void print_cardesTaken();
+            vector<Card> getStack();
 
-        vector<Card> getStack();
+            vector<Card> getCardsTaken();
 
-        vector<Card> getCardsTaken();
+            int getNumberOfWins();
 
-        int getNumberOfWins();
+            void setNumberOfWins();
 
-        void setNumberOfWins();
+            int stacksize();
 
-        int stacksize();
+            int cardesTaken();
 
-        int cardesTaken();
+            void destructor();
 
-        void destructor();
+    };
 
-};
+}
 
 
 #endif

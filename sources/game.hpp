@@ -6,50 +6,51 @@
 #include "card.hpp"
 #include <string>
 
-namespace ariel{}
-class Game{
+namespace ariel{
+    class Game{
 
-    private:
-        Player &player1;
-        Player &player2;
-        vector<Card> deck_of_cards;
-        string turn_status_print;
-        string print_all_log;
-        float number_of_turns;
-        int number_of_draws;
+        private:
+            Player &player1;
+            Player &player2;
+            vector<Card> deck_of_cards;
+            string turn_status_print;
+            string print_all_log;
+            float number_of_turns;
+            int number_of_draws;
 
-    public:
+        public:
 
-        Game(Player &player1,Player &player2);
+            Game(Player &player1,Player &player2);
 
-        void create_deck();
+            void create_deck();
 
-        void print_cards_of_deck(vector<Card> deck_of_cards);
+            void print_cards_of_deck(vector<Card> deck_of_cards);
 
-        vector<Card> getDeck();
+            vector<Card> getDeck();
 
-        void shuffleDeck(vector<Card> &deck_of_cards);
+            void shuffleDeck(vector<Card> &deck_of_cards);
 
-        void divideDeck(vector<Card> &deck_of_cards);
+            void divideDeck(vector<Card> &deck_of_cards);
 
-        void divideDeck_cardsTaken(vector<Card> &deck_of_cards);
+            void divideDeck_cardsTaken(vector<Card> &deck_of_cards);
 
-        void playTurn();
+            void playTurn();
 
-        void get_turn_status(Card p1_card, Card p2_card);
+            void get_turn_status(Card p1_card, Card p2_card);
 
-        void playAll();
+            void playAll();
 
-        void printWiner();
+            void printWiner();
 
-        void printLog();
+            void printLog();
 
-        void printStats();
+            void printStats();
 
-        void printLastTurn();
+            void printLastTurn();
 
 
-};
+    };
+}
 
 
 
