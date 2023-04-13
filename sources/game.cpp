@@ -28,32 +28,12 @@ namespace ariel{
         //create a deck of 52 cards
         create_deck();
 
-        // cout << "Before Shuffle:" << endl;
-        // // print each card before the shuffle
-        // print_cards_of_deck(this->deck_of_cards);
-
         //shuffle the cards
         shuffleDeck(this->deck_of_cards);
         cout << endl;
 
-        // cout << "After Shuffle:" << endl;
-        // // print each card after the shuffle
-        // print_cards_of_deck(this->deck_of_cards);
-        // cout << endl;
-
         //divide the deck to 2 players
         divideDeck(this->deck_of_cards);
-
-        // //print players stack and stack size
-        // cout << "player stack:" << endl;
-        // cout << "player1:" << endl;
-        // cout << player1.stacksize() << endl;
-        // player1.print_stack();
-        // cout << endl;
-
-        // cout << "player2:" << endl;
-        // cout << player2.stacksize() << endl;
-        // player2.print_stack();
 
     }
 
